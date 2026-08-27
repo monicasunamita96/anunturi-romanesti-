@@ -30,7 +30,8 @@ font-size: 32px;
 }
 
 header p {
-margin: 8px 0 0;
+margin: 10px 0 0;
+font-size: 17px;
 }
 
 .container {
@@ -39,23 +40,27 @@ margin: 25px auto;
 padding: 0 15px;
 }
 
-.card {
+.search-box,
+.form-box {
 background: white;
 padding: 22px;
 border-radius: 15px;
-margin-bottom: 20px;
 box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+margin-bottom: 25px;
 }
 
-h2 {
+.search-box h2,
+.form-box h2 {
 margin-top: 0;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
 width: 100%;
 padding: 13px;
-margin: 7px 0 12px;
-border: 1px solid #ddd;
+margin: 8px 0 15px;
+border: 1px solid #ccc;
 border-radius: 9px;
 font-size: 16px;
 }
@@ -66,52 +71,91 @@ resize: vertical;
 }
 
 button {
+border: none;
+border-radius: 9px;
+padding: 13px 20px;
+font-size: 16px;
+cursor: pointer;
+}
+
+.add-button {
 background: #ff6a00;
 color: white;
-border: none;
-padding: 13px 18px;
-border-radius: 9px;
-cursor: pointer;
-font-size: 16px;
-}
-
-button:hover {
-background: #e85d00;
-}
-
-.anunt {
-border: 1px solid #eee;
-border-radius: 12px;
-padding: 18px;
-margin-top: 15px;
-}
-
-.anunt h3 {
-margin-top: 0;
-}
-
-.pret {
-color: #e85d00;
-font-size: 20px;
+width: 100%;
 font-weight: bold;
+margin-bottom: 20px;
+}
+
+.publish-button {
+background: #159447;
+color: white;
+width: 100%;
+font-weight: bold;
+}
+
+.cancel-button {
+background: #777;
+color: white;
+width: 100%;
+margin-top: 8px;
 }
 
 .hidden {
 display: none;
 }
 
-.succes {
-background: #dff6e5;
-color: #176b2c;
-padding: 12px;
-border-radius: 8px;
+.anunt {
+background: white;
+padding: 20px;
+border-radius: 15px;
 margin-bottom: 15px;
+box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+.anunt h3 {
+margin-top: 0;
+font-size: 22px;
+}
+
+.categorie {
+color: #777;
+font-size: 14px;
+}
+
+.pret {
+color: #e65300;
+font-size: 20px;
+font-weight: bold;
+margin: 10px 0;
+}
+
+.contact {
+margin-top: 12px;
+padding: 10px;
+background: #f5f5f5;
+border-radius: 8px;
+}
+
+.empty {
+text-align: center;
+color: #777;
+padding: 30px;
 }
 
 footer {
 text-align: center;
 padding: 30px;
 color: #777;
+}
+
+@media (max-width: 600px) {
+header h1 {
+font-size: 25px;
+}
+
+.container {
+padding: 0 10px;
+}
 }
 </style>
 </head>
@@ -125,88 +169,68 @@ color: #777;
 
 <div class="container">
 
-<div class="card">
-<h2>🔎 Caută un anunț</h2>
+<button class="add-button" onclick="afiseazaFormular()">
+➕ Adaugă anunț
+</button>
 
-<input
-type="text"
-id="cautare"
-placeholder="Ce cauți?">
+<div id="formular" class="form-box hidden">
+<h2>📝 Adaugă un anunț</h2>
 
-<select id="filtru">
-<option value="toate">Toate categoriile</option>
-<option value="Electronice">📱 Electronice</option>
-<option value="Auto">🚗 Auto</option>
-<option value="Imobiliare">🏠 Imobiliare</option>
-<option value="Locuri de muncă">💼 Locuri de muncă</option>
-<option value="Altele">📦 Altele</option>
-</select>
-</div>
+<label>Titlul anunțului</label>
+<input id="titlu" type="text" placeholder="Ex: iPhone 13">
 
-<div class="card">
-<h2>➕ Adaugă un anunț</h2>
-
-<div id="mesaj" class="hidden succes">
-Anunțul a fost adăugat!
-</div>
-
-<input
-type="text"
-id="titlu"
-placeholder="Titlul anunțului">
-
+<label>Categorie</label>
 <select id="categorie">
 <option value="Electronice">📱 Electronice</option>
 <option value="Auto">🚗 Auto</option>
 <option value="Imobiliare">🏠 Imobiliare</option>
 <option value="Locuri de muncă">💼 Locuri de muncă</option>
+<option value="Casă și grădină">🏡 Casă și grădină</option>
+<option value="Haine">👕 Haine</option>
 <option value="Altele">📦 Altele</option>
 </select>
 
-<input
-type="number"
-id="pret"
-placeholder="Preț în euro">
+<label>Preț</label>
+<input id="pret" type="number" placeholder="Ex: 350">
 
-<textarea
-id="descriere"
-placeholder="Descrierea anunțului"></textarea>
+<label>Descriere</label>
+<textarea id="descriere" placeholder="Scrie câteva detalii despre produs..."></textarea>
+
+<label>Telefon / Contact</label>
+<input id="contact" type="text" placeholder="Ex: 07xxxxxxxx">
+
+<button class="publish-button" onclick="adaugaAnunt()">
+✅ Publică anunțul
+</button>
+
+<button class="cancel-button" onclick="ascundeFormular()">
+Anulează
+</button>
+</div>
+
+<div class="search-box">
+<h2>🔎 Caută un anunț</h2>
 
 <input
+id="cautare"
 type="text"
-id="contact"
-placeholder="Telefon sau email">
+placeholder="Ce cauți?"
+oninput="afiseazaAnunturi()"
+>
 
-<button onclick="adaugaAnunt()">Publică anunțul</button>
+<select id="filtru" onchange="afiseazaAnunturi()">
+<option value="Toate">Toate categoriile</option>
+<option value="Electronice">📱 Electronice</option>
+<option value="Auto">🚗 Auto</option>
+<option value="Imobiliare">🏠 Imobiliare</option>
+<option value="Locuri de muncă">💼 Locuri de muncă</option>
+<option value="Casă și grădină">🏡 Casă și grădină</option>
+<option value="Haine">👕 Haine</option>
+<option value="Altele">📦 Altele</option>
+</select>
 </div>
 
-<div class="card">
-<h2>📋 Anunțuri</h2>
-
-<div id="listaAnunturi">
-
-<div class="anunt">
-<h3>📱 iPhone 13</h3>
-<p>Electronice</p>
-<p>Telefon în stare foarte bună, funcționează perfect.</p>
-<div class="pret">350 €</div>
-<button onclick="contacteaza('Exemplu')">
-Contactează vânzătorul
-</button>
-</div>
-
-<div class="anunt">
-<h3>🚗 Volkswagen Golf</h3>
-<p>Auto</p>
-<p>Mașină îngrijită, stare bună.</p>
-<div class="pret">5.500 €</div>
-<button onclick="contacteaza('Exemplu')">
-Contactează vânzătorul
-</button>
-</div>
-
-</div>
-</div>
+<div id="listaAnunturi"></div>
 
 </div>
 
@@ -216,87 +240,151 @@ Contactează vânzătorul
 
 <script>
 
+let anunturi = JSON.parse(localStorage.getItem("anunturiRomanesti")) || [
+{
+titlu: "iPhone 13",
+categorie: "Electronice",
+pret: "350",
+descriere: "Telefon în stare foarte bună, funcționează perfect.",
+contact: "Contactează vânzătorul"
+},
+{
+titlu: "Volkswagen Golf",
+categorie: "Auto",
+pret: "4.500",
+descriere: "Mașină îngrijită, stare bună.",
+contact: "Contactează vânzătorul"
+}
+];
+
+function salveaza() {
+localStorage.setItem(
+"anunturiRomanesti",
+JSON.stringify(anunturi)
+);
+}
+
+function afiseazaFormular() {
+document.getElementById("formular").classList.remove("hidden");
+window.scrollTo({
+top: 0,
+behavior: "smooth"
+});
+}
+
+function ascundeFormular() {
+document.getElementById("formular").classList.add("hidden");
+}
+
 function adaugaAnunt() {
 
-const titlu = document.getElementById("titlu").value;
+const titlu = document.getElementById("titlu").value.trim();
 const categorie = document.getElementById("categorie").value;
-const pret = document.getElementById("pret").value;
-const descriere = document.getElementById("descriere").value;
-const contact = document.getElementById("contact").value;
+const pret = document.getElementById("pret").value.trim();
+const descriere = document.getElementById("descriere").value.trim();
+const contact = document.getElementById("contact").value.trim();
 
 if (!titlu || !pret || !descriere || !contact) {
 alert("Te rog completează toate câmpurile.");
 return;
 }
 
-const anunt = document.createElement("div");
-anunt.className = "anunt";
+const anuntNou = {
+titlu: titlu,
+categorie: categorie,
+pret: pret,
+descriere: descriere,
+contact: contact
+};
 
-anunt.innerHTML = `
-<h3>${titlu}</h3>
-<p>${categorie}</p>
-<p>${descriere}</p>
-<div class="pret">${pret} €</div>
-<button onclick="contacteaza('${contact}')">
-Contactează vânzătorul
-</button>
-`;
+anunturi.unshift(anuntNou);
 
-document.getElementById("listaAnunturi").prepend(anunt);
+salveaza();
 
 document.getElementById("titlu").value = "";
 document.getElementById("pret").value = "";
 document.getElementById("descriere").value = "";
 document.getElementById("contact").value = "";
 
-const mesaj = document.getElementById("mesaj");
-mesaj.classList.remove("hidden");
+ascundeFormular();
+afiseazaAnunturi();
 
-setTimeout(() => {
-mesaj.classList.add("hidden");
-}, 3000);
+alert("✅ Anunțul a fost adăugat!");
 }
 
-function contacteaza(contact) {
-alert("Contact vânzător: " + contact);
-}
+function afiseazaAnunturi() {
 
-document.getElementById("cautare").addEventListener("input", filtreaza);
-document.getElementById("filtru").addEventListener("change", filtreaza);
+const lista = document.getElementById("listaAnunturi");
 
-function filtreaza() {
+const cautare =
+document.getElementById("cautare").value.toLowerCase();
 
-const text = document
-.getElementById("cautare")
-.value
-.toLowerCase();
-
-const categorie =
+const filtru =
 document.getElementById("filtru").value;
 
-const anunturi =
-document.querySelectorAll(".anunt");
+const rezultate = anunturi.filter(anunt => {
 
-anunturi.forEach(anunt => {
+const text =
+(
+anunt.titlu +
+" " +
+anunt.descriere +
+" " +
+anunt.categorie
+).toLowerCase();
 
-const continut =
-anunt.innerText.toLowerCase();
+const sePotrivesteCautarea =
+text.includes(cautare);
 
-const categorieCorecta =
-categorie === "toate" ||
-continut.includes(categorie.toLowerCase());
+const sePotrivesteCategoria =
+filtru === "Toate" ||
+anunt.categorie === filtru;
 
-const textCorect =
-continut.includes(text);
+return (
+sePotrivesteCautarea &&
+sePotrivesteCategoria
+);
+});
 
-if (categorieCorecta && textCorect) {
-anunt.style.display = "block";
-} else {
-anunt.style.display = "none";
+lista.innerHTML = "";
+
+if (rezultate.length === 0) {
+lista.innerHTML =
+'<div class="empty">😕 Nu am găsit niciun anunț.</div>';
+return;
 }
 
+rezultate.forEach(anunt => {
+
+const div = document.createElement("div");
+
+div.className = "anunt";
+
+div.innerHTML = `
+<div class="categorie">
+${anunt.categorie}
+</div>
+
+<h3>${anunt.titlu}</h3>
+
+<div class="pret">
+${anunt.pret} lei
+</div>
+
+<p>
+${anunt.descriere}
+</p>
+
+<div class="contact">
+📞 ${anunt.contact}
+</div>
+`;
+
+lista.appendChild(div);
 });
 }
+
+afiseazaAnunturi();
 
 </script>
 
